@@ -5,17 +5,17 @@ function Nav () {
     <div className="nav-bar">
         <ul>
         <li className="nav-item">
-        <Link to="/" className={location.pathname === "/" }>
+        <Link to="/" >
           Home
         </Link>
       </li>
       <li className="nav-item">
-        <Link to="/dashboard" className={location.pathname === "/dashboard"}>
+        <Link to="/dashboard" >
          Dashboard
         </Link>
       </li>
       <li className="nav-item">
-        <Link to="/employee" className={location.pathname === "/employee"}>
+        <Link to="/employee" >
           Employee
         </Link>
       </li>
