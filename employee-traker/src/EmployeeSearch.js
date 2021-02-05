@@ -41,27 +41,20 @@ class EmployeeContainer extends Component {
         })
         console.log([name], value)
     }
-    searchEmployeeByName = (name) => {
-        console.log({
-            name
-        });
+    searchEmployeeByName = name => {
+        if (name === '') {
+          return this.setState({
+            filtered: [...this.state.results],
+          });
+        };
         const newSearch = this.state.results.filter(employee => {
-            console.log({
-                employee
-            });
-            console.log(employee.name.first)
-            const sortNames = employee.name.first.toLowerCase().includes(name.toLowerCase());
-            console.log(sortNames);
-            return sortNames
-        })
-        console.log(newSearch)
-        if (newSearch) {
-            this.setState({
-                results: newSearch
-            });
-            // console.log(this.state.results)
+          const employeeName = employee.name.first.toLowerCase() + employee.name.last.toLowerCase()  ;
+          return employeeName.includes(name.toLowerCase());
+        });
+        if (newSearch.length) {
+          this.setState({ filtered: newSearch });
         }
-    }
+      }
     handleSubmit = (e) => {
         e.preventDefault();
 
@@ -73,10 +66,19 @@ class EmployeeContainer extends Component {
         this.searchEmployeeByName(this.state.search);
     }
     render() {
-            return ( <div className = "employee-container">
-                    <Search search = { this.state.search } handleSubmit = {this.handleSubmit} handleInput = {this.handleInput }/> 
-                    {this.state.loading && < div className = "loading" > Loading... </div> }
-                     { this.state.notFound && <div className = "alert"> Not Employee Found </div> } 
-                     {!this.filtered.length && <EmployeeList results = {this.state.filtered}/>} </div>)}
+            return (       <div className="employee-container">
+            <Search 
+              search={this.state.search} 
+              handleSubmit={this.handleSubmit} 
+              handleInput={this.handleInput}
+            />
+    ​
+            {this.state.loading && <div className="loading"> Loading... </div>}
+    ​
+            {this.state.notFound && <div className="alert"> Not Employee Found </div>}
+    ​
+            {this.state.filtered.length && <EmployeeList results={this.state.filtered} />}
+          </div>
+        )}
 }
 export default EmployeeContainer;
